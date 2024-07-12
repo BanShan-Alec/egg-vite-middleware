@@ -1,0 +1,14 @@
+{
+    "extends": "@eggjs/tsconfig",
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES2022",
+        "baseUrl": ".",
+        "declaration": true,
+        "sourceMap": false,
+        "inlineSourceMap": false,
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

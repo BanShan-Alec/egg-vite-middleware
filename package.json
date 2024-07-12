@@ -1,0 +1,67 @@
+{
+  "name": "@banshan-alec/egg-vite-middleware",
+  "version": "1.1.0",
+  "description": "use ViteServer middleware mode as eggjs plugin",
+  "eggPlugin": {
+    "name": "vitePlugin"
+  },
+  "dependencies": {
+    "koa2-connect": "^1.0.2",
+    "lodash": "^4.17.15",
+    "open": "^8",
+    "vite": ">=5"
+  },
+  "devDependencies": {
+    "@eggjs/tsconfig": "^1.3.3",
+    "@types/lodash": "^4.17.5",
+    "egg": "^3.24.1",
+    "egg-ts-helper": "^2.1.0",
+    "eslint": "^8",
+    "eslint-config-egg": "^13.1.0",
+    "typescript": "^5.5.2"
+  },
+  "engines": {
+    "node": ">=18.9.0"
+  },
+  "scripts": {
+    "lint": "eslint  . --ext js --fix",
+    "dts": "ets -o typings/index.d.ts",
+    "clean": "tsc -b --clean",
+    "prebuild": "npm run clean",
+    "build": "tsc && npm run lint",
+    "prepublishOnly": "npm run dts && npm run build",
+    "pub": "npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/BanShan-Alec/egg-vite-middleware.git"
+  },
+  "keywords": [
+    "egg",
+    "egg-plugin",
+    "vite"
+  ],
+  "author": "banshan-alec",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@banshan-alec",
+    "@banshan-alec:registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "app/**/*.js",
+    "app/**/*.d.ts",
+    "config/**/*.js",
+    "config/**/*.d.ts",
+    "lib/**/*.js",
+    "lib/**/*.d.ts",
+    "app.js",
+    "agent.js",
+    "index.js",
+    "index.d.ts",
+    "typings"
+  ],
+  "eslintIgnore": [
+    "coverage",
+    "dist"
+  ],
+  "license": "MIT"
+}
