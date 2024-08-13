@@ -9,8 +9,8 @@ export default class ViteService extends Service {
    *
    * Because the renderTpl method without a caching mechanism, it might have performance issues.
    *
-   * @param [transformTemplate]
-   * @param [_templatePath]
+   * @param {(code: string) => string} [transformTemplate] 模板渲染
+   * @param {string} [_templatePath] 默认值: path.join(config.root, "index.html")
    */
   async renderTpl(
     transformTemplate?: (code: string) => string,
