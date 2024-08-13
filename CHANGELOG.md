@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.1
+
+
+### 🚀 Enhancements
+
+- 优化renderTpl方法的类型提示，更新readme (d9eaf0c)
+- 去除自动读取.env 相关的逻辑 (ce257c7)
+
+### ❤️ Contributors
+
+- Wengzehua ([@BanShan-Alec](http://github.com/BanShan-Alec))
+
 ## v1.1.0
 
 [compare changes](https://undefined/undefined/compare/v1.0.6...v1.1.0)
