@@ -66,32 +66,48 @@ export default (appInfo: EggAppInfo) => {
 export default class HTMLController extends Controller {
   async html() {
     console.log("路由html", this.ctx.req.url);
-    return await this.ctx.service.vite.renderTpl((code) => {
-      html.replace(
-        "<!-- INJECT_ENV -->",
-        `<script>Object.defineProperty(window,'MyEnv',{value:Object.freeze(${JSON.stringify({ appInfo: 'xxx' })}),writable: false});</script>`
+    if (process.env.NODE_ENV === "production") {
+      // Why? 使用ctx.render可以缓存模板，提高性能，vite.renderTpl使用的是fs读取html，不会缓存
+      await this.ctx.render(
+        "index.html",
+        { appInfo: "xxx" },
+        {
+          viewEngine: "nunjucks",
+        }
       );
-    });
+    } else {
+      await this.ctx.service.vite.renderTpl((code) => {
+        return html.replace(
+          "{{ appInfo }}",
+          `<script>Object.defineProperty(window,'MyEnv',{value:Object.freeze(${JSON.stringify(
+            { appInfo: "xxx" }
+          )}),writable: false});</script>`
+        );
+      });
+    }
   }
 }
 ```
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/png" href="/icon.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="expires" content="0" />
-        <title>%VITE_APP_NAME%</title>
-        <!-- INJECT_ENV -->
-        <style></style>
-    </head>
-    <body>
-        <div id="root"></div>
-        <script type="module" src="/src/index.tsx"></script>
-    </body>
-</html>      
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="cache-control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="expires" content="0" />
+    <title>%VITE_APP_NAME%</title>
+    {{ appInfo }}
+    <style></style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
 ```
