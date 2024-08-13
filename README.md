@@ -38,23 +38,6 @@ export default (appInfo: EggAppInfo) => {
 };
 ```
 
-## 读取.env 逻辑
-
-本插件会自动读取.env 文件，并写入到`this.app.envConfig`
-
-不同于 Vite 官方默认的读取.env 逻辑 [Env Variables and Modes | Vite](https://vitejs.dev/guide/env-and-mode#node-env-and-modes)
-
-读取.env 的 Mode 默认逻辑，依赖于`process.env.NODE_ENV`，当然你也可以自定义
-
-```ts
-export default (appInfo: EggAppInfo) => {
-  return {
-    vitePluginConfig: {
-      mode: process.env["EGG_SERVER_ENV"],
-    },
-  };
-};
-```
 
 ## 模板渲染
 

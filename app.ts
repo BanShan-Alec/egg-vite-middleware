@@ -1,5 +1,4 @@
 import { Application, IBoot } from "egg";
-import { getEnv } from "./lib/defineEnv";
 import { initVitePlugin } from "./lib/vitePlugin";
 import { name } from "./package.json";
 
@@ -16,11 +15,6 @@ export default class App implements IBoot {
       `[${name}] vitePluginConfig`,
       this.app.config.vitePluginConfig
     );
-
-    const { mode = "prod", root, envDir } = this.app.config.vitePluginConfig;
-    const _envDir = envDir || root || process.cwd();
-
-    this.app.envConfig = getEnv(mode, _envDir, this.app.config.remoteConfig);
   }
 
   async didLoad() {
