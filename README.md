@@ -1,24 +1,25 @@
 # egg-vite-middleware
 
-use ViteServer middleware mode as eggjs plugin
-[插件开发 - Egg](https://www.eggjs.org/zh-CN/advanced/plugin)
+Use vite server middleware mode as eggjs plugin, Fit for vite >= 5
+[Plugin Development - Egg](https://www.eggjs.org/zh-CN/advanced/plugin)
 
-## 配置
-
-通过 `config/plugin.ts` 配置启动 vite 插件:
+## Usage
 
 ```ts
+// {app_root}/config/plugin.ts
 export default {
   vitePlugin: {
     enable: true,
-    package: "@banshan-alec/egg-vite-middleware",
+    package: "egg-vite-middleware",
   },
 };
 ```
 
-在 `config/config.${env}.ts` 配置基础配置：
+## Configuration
+support Configuration TypeScript prompt
 
 ```ts
+// {app_root}/config/config.default.ts
 export default (appInfo: EggAppInfo) => {
   return {
     vitePluginConfig: {
@@ -29,7 +30,7 @@ export default (appInfo: EggAppInfo) => {
     },
     cluster = {
         listen: {
-            open: true, // 设置open: true 可以自动打开浏览器
+            open: true, // `true` will auto open default Browser
             port: 6019,
             hostname: '0.0.0.0',
         },
@@ -39,18 +40,18 @@ export default (appInfo: EggAppInfo) => {
 ```
 
 
-## 模板渲染
+## Template Rendering
 
-本插件暴露一个 Service，`renderTpl` 用于注入必要的运行时，和处理模板渲染
+This plugin exposes a Service with `renderTpl` method for injecting necessary runtime and handling template rendering.
 
-逻辑参考 [Server-Side Rendering | Vite](https://vitejs.dev/guide/ssr.html#setting-up-the-dev-server)
+The logic refers to [Server-Side Rendering | Vite](https://vitejs.dev/guide/ssr.html#setting-up-the-dev-server)
 
 ```ts
 export default class HTMLController extends Controller {
   async html() {
-    console.log("路由html", this.ctx.req.url);
+    console.log("route html", this.ctx.req.url);
     if (process.env.NODE_ENV === "production") {
-      // Why? 使用ctx.render可以缓存模板，提高性能，vite.renderTpl使用的是fs读取html，不会缓存
+      // Why? Using ctx.render can cache templates to improve performance, while vite.renderTpl uses fs to read html without caching
       await this.ctx.render(
         "index.html",
         { appInfo: "xxx" },
