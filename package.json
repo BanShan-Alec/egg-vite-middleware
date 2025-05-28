@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@https://github.com/BanShan-Alec/egg-vite-middleware.git"
+    "url": "git+@https://github.com/BanShan-Alec/egg-vite-middleware.git"
   },
   "keywords": [
     "egg",
@@ -44,8 +44,8 @@
   ],
   "author": "BanShan<627649674@qq.com>",
   "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
-    },
+    "registry": "https://registry.npmjs.org/"
+  },
   "files": [
     "app/**/*.js",
     "app/**/*.d.ts",
